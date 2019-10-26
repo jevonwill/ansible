@@ -1,6 +1,6 @@
 ansible_python_interpreter="/usr/local/bin/python3"
 
 ###IP's for test webservers
-[ansi-test]
+[webservers]
 10.0.0.4
 
