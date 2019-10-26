@@ -1,7 +1,7 @@
-
 ---
+
 - name: Install python
-- hosts: webservers
+  hosts: webservers
   remote_user: root
   gather_facts: false
   tasks:
@@ -11,6 +11,6 @@
       failed_when: false
       register: check_python
 
-    - name: Install Python
+    - name: Install python 3.6
       raw: apt -y update && apt install -y python3.6
       when: check_python.rc != 0

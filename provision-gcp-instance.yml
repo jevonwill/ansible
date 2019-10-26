@@ -1,7 +1,7 @@
 ###ansible-playbook /home/Jevon/ansible/provision-gcp-instance.yml
 
 - name: Configure webservers
-- hosts: webservers
+  hosts: webservers
   vars_files:
     - inventory/group_vars/ops-test-jevon.yml
   remote_user: root
