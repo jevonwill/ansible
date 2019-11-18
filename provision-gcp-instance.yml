@@ -7,5 +7,4 @@
   remote_user: root
   gather_facts: false
   roles:
-     - python3
-#     - gcp.cli  
+     - gcp.sdk  
