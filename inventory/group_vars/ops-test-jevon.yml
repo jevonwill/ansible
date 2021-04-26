@@ -1,6 +1,0 @@
-ansible_python_interpreter: "/usr/local/bin/python3"
-
-###IP's for test webservers
-webservers:
-  hosts:
-      10.0.0.4:
