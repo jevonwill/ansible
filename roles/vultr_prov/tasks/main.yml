@@ -1,2 +1,13 @@
-- name: Install the correct web server for RHEL
-    import_tasks: provision.yml
+# ansible-playbook deploy.yml -i group_vars/vultr.yml
+
+-
+
+        block:
+
+          - name: Ensure VM exists
+            local_action:
+                    module: vultr_server
+                    name: "{{ hostname }}"
+                    os: "{{ image }}"
+                    plan: "{{ plan }}"
+                    region: "{{ region }}"

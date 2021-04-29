@@ -6,11 +6,7 @@
   gather_facts: no
   vars_files: 
     - group_vars/vars.yml
+  roles:
+    - vultr_prov
   tasks:
-          - name: Ensure VM exists
-            local_action:
-                    module: vultr_server
-                    name: "{{ hostname }}"
-                    os: "{{ image }}"
-                    plan: "{{ plan }}"
-                    region: "{{ region }}"
+          
