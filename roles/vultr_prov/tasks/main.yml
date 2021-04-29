@@ -18,3 +18,11 @@
               module: vultr_ssh_key
               name: "{{ user }}"
               ssh_key: "{{ lookup('file', '~/.ssh/authorized_keys') }}"
+
+
+          - name: Create firewallgroup
+            local_action: 
+              module: vultr_firewall_group_
+              name: "{{ firewall_group }}"
+
+
