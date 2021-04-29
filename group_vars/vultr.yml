@@ -1,2 +1,4 @@
----
-plugin: vultr
+
+[ansible_hosts]
+instance-1
+

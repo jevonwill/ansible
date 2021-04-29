@@ -1,0 +1,14 @@
+---
+
+- hosts: ansible_hosts
+  gather_facts: no
+  vars_files: 
+    - group_vars/vars.yml
+  tasks:
+          - name: Ensure VM exists
+            local_action:
+                    module: vr_server
+                    name: "{{ hostname }}"
+                    os: "{{ image }}"
+                    plan: "{{ plan }}"
+                    region: "{{ region }}"
