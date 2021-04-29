@@ -6,8 +6,15 @@
 
           - name: Ensure VM exists
             local_action:
-                    module: vultr_server
-                    name: "{{ hostname }}"
-                    os: "{{ image }}"
-                    plan: "{{ plan }}"
-                    region: "{{ region }}"
+              module: vultr_server
+              name: "{{ hostname }}"
+              os: "{{ image }}"
+              plan: "{{ plan }}"
+              region: "{{ region }}"
+
+
+          - name: Copy ssh key
+            local_action: 
+              module:
+              name:
+              ssh_key:
