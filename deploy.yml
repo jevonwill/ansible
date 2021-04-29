@@ -1,3 +1,5 @@
+# ansible-playbook deploy.yml -i group_vars/vultr.yml
+
 ---
 
 - hosts: ansible_hosts
@@ -7,7 +9,7 @@
   tasks:
           - name: Ensure VM exists
             local_action:
-                    module: vr_server
+                    module: vultr_server
                     name: "{{ hostname }}"
                     os: "{{ image }}"
                     plan: "{{ plan }}"
