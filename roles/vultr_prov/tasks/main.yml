@@ -4,15 +4,7 @@
 
         block:
 
-          - name: Ensure VM exists
-            local_action:
-              module: vultr_server
-              name: "{{ hostname }}"
-              os: "{{ image }}"
-              plan: "{{ plan }}"
-              region: "{{ region }}"
-
-
+          
           - name: Copy ssh key
             local_action: 
               module: vultr_ssh_key
@@ -26,9 +18,9 @@
               name: "{{ firewall_group }}"
 
 
-      #   - name: Get public IP of ansible host
+    #     - name: Get public IP of ansible host
     #       command: hostname -I
-    #         register: public_ip 
+    #       register: public_ip 
 
 
           - name: Set firewall rules 
@@ -38,4 +30,17 @@
               protocol: tcp
               port: 22
               ip_version: v4
-              cidr: "{{ public_ip }}/32" 
+              cidr: "{{ public_ip }}/32"
+
+
+          - name: Ensure VM exists
+            local_action:
+              module: vultr_server
+              name: "{{ hostname }}"
+              os: "{{ image }}"
+              plan: "{{ plan }}"
+              firewall_group: "{{ firewall_group }}"
+              ssh_key: ansible
+              region: "{{ region }}"
+
+
