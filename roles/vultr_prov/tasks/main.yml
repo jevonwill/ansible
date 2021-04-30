@@ -25,4 +25,9 @@
               module: vultr_firewall_group
               name: "{{ firewall_group }}"
 
+          - name: "Get public IP of ansible host"
+            local_action:
+              module: ipify_facts
+             
+
 
