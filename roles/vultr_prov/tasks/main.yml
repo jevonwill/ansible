@@ -22,7 +22,7 @@
 
           - name: Create firewallgroup
             local_action: 
-              module: vultr_firewall_group_
+              module: vultr_firewall_group
               name: "{{ firewall_group }}"
 
 
