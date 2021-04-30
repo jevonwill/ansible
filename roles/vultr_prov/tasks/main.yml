@@ -25,9 +25,17 @@
               module: vultr_firewall_group
               name: "{{ firewall_group }}"
 
-          - name: "Get public IP of ansible host"
+
+      #   - name: Get public IP of ansible host
+    #       command: hostname -I
+    #         register: public_ip 
+
+
+          - name: Set firewall rules 
             local_action:
-              module: ipify_facts
-             
-
-
+              module: vultr_firewall_rule
+              group: "{{ firewall_group }}"
+              protocol: tcp
+              port: 22
+              ip_version: v4
+              cidr: "{{ public_ip }}/32" 
