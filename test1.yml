@@ -69,6 +69,6 @@
         region: us-east-1
       register: keypair
 
-    - name: Copy EC2 keypair to home dir
-      copy: content="{{ keypair.key.private_key}}" dest={{ ~/ }}key.ppk
+    - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
+      copy: content="{{ keypair.key.private_key }}" dest={{ ec2_key_directory }}key.ppk
       when: keypair.changed == true
