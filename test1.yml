@@ -16,12 +16,12 @@
     - name: Public Subnets
       ec2_vpc_subnet:
         vpc_id: "{{ vpc_result.vpc.id }}"
-        cidr_block: "{{ item.cidr_block }}"
+        cidr: "{{ item.cidr }}"
         name: "{{ item.name }}"
         az: "{{ item.az }}"
         region: us-east-1
         map_public: true
       with_items:
-        - { cidr_block: 10.1.1.0/24, az: "us-east-1a", name: dw-public-subnet-1 }
-        - { cidr_block: 10.1.2.0/24, az: "us-east-1b", name: dw-public-subnet-2}
+        - { cidr: 10.1.1.0/24, az: "us-east-1a", name: dw-public-subnet-1 }
+        - { cidr: 10.1.2.0/24, az: "us-east-1b", name: dw-public-subnet-2}
       register: public_subnet_result
