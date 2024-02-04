@@ -46,14 +46,19 @@
           Name: dwIGW
       register: igw
 
-    - name: Create Route Table & Associate with IGW
-      ec2_vpc_route_table:
+    - name: Create Security Group
+      ec2_group:
+        name: dw Public Access
         vpc_id: "{{ vpc_result.vpc.id }}"
         region: us-east-1
-        subnets:
-          - "{{ private_subnet_result.id }}"
-        routes:
-          - dest: 0.0.0.0/0
-            gateway_id: "{{ igw.gateway_id }}"
-        tags:
-          Name: privateIGW
+        rules:
+          - proto: tcp
+            ports: 
+            - 80
+            cidr_ip: 0.0.0.0./0
+          - proto: tcp
+            ports: 
+            - 22
+            cidr_ip: 0.0.0.0./0
+        register: security_group
+          
