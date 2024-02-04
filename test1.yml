@@ -12,3 +12,15 @@
         cidr_block: 10.1.0.0/16
         region: us-east-1
       register: vpc_result
+
+- name: Public Subnets
+      ec2_vpc_net:
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        cidr: "{{ item.cidr }}"
+        az: "{{ item.az }}"
+        region: us-east-1
+        map_public: true
+      with_items:
+        - { cidr: 10.1.1.0/24, az: "us-east-1a" }
+        - { cidr: 10.1.2.0/24, az: "us-east-1b" }
+      register: public_subnet_result
