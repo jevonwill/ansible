@@ -5,6 +5,7 @@
 - name: Create AWS VPC, Subnets, and Security Groups
   hosts: localhost
   gather_facts: false
+  vars: group_vars/vars.yml
   tasks:
     - name: Create VPC
       ec2_vpc_net:
