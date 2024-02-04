@@ -10,7 +10,7 @@
       ec2_vpc_net:
         name: dwVPC
         cidr_block: 10.1.0.0/16
-        region: "{{ region }}"
+        region: us-east-1
       register: vpc_result
 
     - name: Public Subnets
@@ -18,7 +18,7 @@
         vpc_id: "{{ vpc_result.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
-        region: "{{ region }}"
+        region: us-east-1
         map_public: true
       with_items:
         - { cidr: 10.1.1.0/24, az: "us-east-1a"}
@@ -30,7 +30,7 @@
         vpc_id: "{{ vpc_result.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
-        region: "{{ region }}"
+        region: us-east-1
         map_public: false
       with_items:
         - { cidr: 10.1.3.0/24, az: "us-east-1a"}
@@ -40,7 +40,7 @@
     - name: Create IGW
       ec2_vpc_igw:
         vpc_id: "{{ vpc_result.vpc.id }}"
-        region: "{{ region }}"
+        region: us-east-1
         state: "present" 
         tags:
           Name: dwIGW
@@ -51,7 +51,7 @@
         name: dw Public Access
         description: Security group for public instances
         vpc_id: "{{ vpc_result.vpc.id }}"
-        region: "{{ region }}"
+        region: us-east-1
         rules:
           - proto: tcp
             ports: 
@@ -66,5 +66,5 @@
     - name: Create key pair
       ec2_key:
         name: dw_keypair
-        region: "{{ region }}"
+        region: us-east-1
       register: keypair
