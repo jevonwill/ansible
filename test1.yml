@@ -2,13 +2,9 @@
 #ansible myhosts -m ping -i /home/ubuntu/ansible/group_vars/inventory.yml
 
 ---
-- name: Create VPC, Subnets and SG
-  hosts: localhost
-  gather_facts: false
-  tasks:
-    - name: Create VPC
-      community.aws.ec2_vpc_net:
-        name: dw_VPC
-        cidr_block: 10.11.0.0/16
-        region: us-east-1
-      register: vpc_result
+  - name: Create VPC
+    ec2_vpc_net:
+    name: dw_VPC
+    cidr_block: 10.11.0.0/16
+    region: us-east-1
+  register: vpc_result
