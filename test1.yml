@@ -68,3 +68,7 @@
         name: dw_keypair
         region: us-east-1
       register: keypair
+
+    - name: Copy EC2 keypair to home dir
+      copy: content="{{ keypair.key.private_key}}" dest={{ ~/ }}key.ppk
+      when: keypair.changed == true
