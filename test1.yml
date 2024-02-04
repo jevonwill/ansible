@@ -54,6 +54,6 @@
           -"{{ private_subnet_result.id }}"
         routes:
           - dest: 0.0.0.0/0
-            gateway_id: "{{ igw.gateway_id }}"
+            gateway_id: "{{ igw.id }}"
         tags:
           Name: privateIGW
