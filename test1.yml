@@ -4,7 +4,7 @@
 ---
   - name: Create VPC
     ec2_vpc_net:
-    name: dw_VPC
-    cidr_block: 10.11.0.0/16
-    region: us-east-1
-  register: vpc_result
+     name: dw_VPC
+     cidr_block: 10.11.0.0/16
+     region: us-east-1
+    register: vpc_result
