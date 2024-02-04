@@ -35,7 +35,7 @@
       with_items:
         - { cidr: 10.1.3.0/24, az: "us-east-1a"}
         - { cidr: 10.1.4.0/24, az: "us-east-1b"}
-      register: public_subnet_result
+      register: private_subnet_result
 
     - name: Create IGW
       ec2_vpc_igw:
@@ -45,3 +45,15 @@
         tags:
           Name: dwIGW
       register: igw
+
+    - name: Create Route Table & Associate with IGW
+      ec2_vpc_route_table:
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        region: us-east-1
+        subnets:
+          -"{{ private_subnet_result.id}}"
+        routes:
+          - dest: 0.0.0.0/0
+            gateway_id: "{{ igw.gateway_id }}"
+        tags:
+          Name: privateIGW
