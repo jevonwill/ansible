@@ -1,0 +1,4 @@
+---
+#vars/playbook.yml
+
+region: "{{ region }}"

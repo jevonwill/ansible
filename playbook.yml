@@ -10,7 +10,7 @@
       community.aws.ec2_vpc_net:
         name: dw_VPC
         cidr_block: 10.11.0.0/16
-        region: us-east-1
+        region: {{ region }}
       register: vpc_result
 
     - name: Public Subnets
@@ -18,11 +18,11 @@
         vpc_id: "{{ vpc_result.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
-        region: us-east-1
+        region: {{ region }}
         map_public: true
       with_items:
-        - { cidr: 10.11.1.0/24, az: "us-east-1a" }
-        - { cidr: 10.11.2.0/24, az: "us-east-1b" }
+        - { cidr: 10.11.1.0/24, az: "{{ region }}a" }
+        - { cidr: 10.11.2.0/24, az: "{{ region }}b" }
       register: public_subnet_result
 
     - name: Private Subnets
@@ -30,11 +30,11 @@
         vpc_id: "{{ vpc_result.vpc.id }}"
         cidr: "{{ item.cidr }}"
         az: "{{ item.az }}"
-        region: us-east-1
+        region: {{ region }}
         map_public: false
       with_items:
-        - { cidr: 10.11.3.0/24, az: "us-east-1a" }
-        - { cidr: 10.11.4.0/24, az: "us-east-1b" }
+        - { cidr: 10.11.3.0/24, az: "{{ region }}a" }
+        - { cidr: 10.11.4.0/24, az: "{{ region }}b" }
       register: private_subnet_result
 
     - name: public-access-sg
@@ -44,7 +44,7 @@
         description: Security group for instances in public subnets
         vpc_id: "{{ vpc_result.vpc.id }}"
         az: "{{ item.az }}"
-        region: us-east-1
+        region: {{ region }}
       register: public_sg_result
 
     - name: private-access-sg
@@ -54,6 +54,6 @@
         description: Security group for instances in public subnets
         vpc_id: "{{ vpc_result.vpc.id }}"
         az: "{{ item.az }}"
-        region: us-east-1
+        region: {{ region }}
       register: private_sg_result
 
