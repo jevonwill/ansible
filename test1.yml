@@ -16,7 +16,7 @@
     - name: Public Subnets
       ec2_vpc_net:
         vpc_id: "{{ vpc_result.vpc.id }}"
-        cidr_block: "{{ item.cidr }}"
+        cidr_block: "{{ item.cidr_block }}"
         name: "{{ item.name }}"
         az: "{{ item.az }}"
         region: us-east-1
