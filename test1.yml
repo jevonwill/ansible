@@ -51,7 +51,7 @@
         vpc_id: "{{ vpc_result.vpc.id }}"
         region: us-east-1
         subnets:
-          -"{{ private_subnet_result.id}}"
+          -"{{ private_subnet_result.id }}"
         routes:
           - dest: 0.0.0.0/0
             gateway_id: "{{ igw.gateway_id }}"
