@@ -13,7 +13,7 @@
         region: us-east-1
       register: vpc_result
 
-- name: Public Subnets
+    - name: Public Subnets
       ec2_vpc_net:
         vpc_id: "{{ vpc_result.vpc.id }}"
         cidr: "{{ item.cidr }}"
