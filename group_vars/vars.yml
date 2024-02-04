@@ -1,4 +1,4 @@
 ---
 #vars/playbook.yml
 
-region: "{{ region }}"
+region: us-east-1
