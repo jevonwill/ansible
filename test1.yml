@@ -49,6 +49,7 @@
     - name: Create Security Group
       ec2_group:
         name: dw Public Access
+        description: Security group for public instances
         vpc_id: "{{ vpc_result.vpc.id }}"
         region: us-east-1
         rules:
