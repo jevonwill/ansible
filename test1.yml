@@ -60,5 +60,5 @@
             ports: 
             - 22
             cidr_ip: 0.0.0.0./0
-        register: security_group
+      register: security_group
           
