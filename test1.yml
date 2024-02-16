@@ -71,7 +71,7 @@
 
     - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
       fetch: 
-        content: "{{ keypair.key.private_key }}" 
+        src: "{{ keypair.key.private_key }}" 
         dest: /home/ubuntu/
         flat: yes
         validate_certs: no
