@@ -63,12 +63,15 @@
             cidr_ip: 0.0.0.0./0
       register: security_group
           
-  #  - name: Create key pair
-  #    ec2_key:
-  #      name: dw_keypair
-  #      region: us-east-1
-  #    register: keypair
+    - name: Create key pair
+      ec2_key:
+        name: dw_keypair
+        region: us-east-1
+      register: keypair
 
-  #  - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
-  #    copy: content="{{ keypair.key.private_key }}" dest= /home/ubuntu/key.ppk
-  #    when: keypair.changed == true
+    - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
+      fetch: 
+        content: "{{ keypair.key.private_key }}" 
+        dest: /home/ubuntu/
+        flat: yes
+        validate_certs: no
