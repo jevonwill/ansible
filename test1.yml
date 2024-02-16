@@ -69,12 +69,13 @@
         region: us-east-1
       register: keypair
 
+    - name: Debug keypair variable
+      debug:
+        var: keypair
+
     - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
       copy: 
         src: "{{ keypair.key.file }}" 
         dest: /home/ubuntu/dw_keypair.pem
       when: keypair.changed
 
-    - name: Debug keypair_result variable
-      debug:
-        var: keypair
