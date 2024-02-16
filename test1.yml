@@ -92,7 +92,7 @@
         vpc_subnet_id: "{{ item.subnet.id }}"
         key_name: "{{ keypair.key.name }}"
         name: staticS3 
-        security_goups:
+        security_groups:
           - "{{ security_group.group_id }}"
       loop: "{{ public_subnet_result.results }}"
       register: dw_instances
