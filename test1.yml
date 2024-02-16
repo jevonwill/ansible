@@ -92,6 +92,8 @@
         group_id: "{{ security_group.group_id }} " 
         vpc_subnet_id: "{{ item.subnet.id }}"
         key_name: "{{ keypair.key.name }}"
-        count_tag:
-          Name: staticS3
+        name: staticS3 
+        security_goups:
+          - "{{ security_group.id }}"
       loop: "{{ public_subnet_result.results }}"
+      register: dw_instances
