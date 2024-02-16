@@ -84,7 +84,7 @@
         var: public_subnet_result
 
     - name: Create EC2 instance
-      ec2:
+      ec2_instance:
         image: ami-00eaf15cd7bd717b6
         wait: yes
         instance_type: t2.micro
