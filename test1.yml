@@ -90,7 +90,7 @@
         instance_type: t2.micro
         region: us-east-1
         group_id: "{{ security_group.group_id }} " 
-        subnet_id: "{{ item.subnet.id }}"
+        vpc_subnet_id: "{{ item.subnet.id }}"
         key_name: "{{ keypair.key.name }}"
         count_tag:
           Name: staticS3
