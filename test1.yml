@@ -79,6 +79,10 @@
         dest: /home/ubuntu/dw_keypair.pem
       when: keypair.changed
 
+    - name: Debug keypair variable
+      debug:
+        var: public_subnet_result
+
     - name: Create EC2 instance
       ec2:
         image: ami-00eaf15cd7bd717b6
