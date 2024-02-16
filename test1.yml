@@ -74,3 +74,7 @@
         src: "{{ keypair.key.file }}" 
         dest: /home/ubuntu/dw_keypair.pem
       when: keypair.changed
+
+    - name: Debug keypair_result variable
+      debug:
+        var: keypair
