@@ -89,11 +89,10 @@
         wait: yes
         instance_type: t2.micro
         region: us-east-1
-        group_id: "{{ security_group.group_id }} " 
         vpc_subnet_id: "{{ item.subnet.id }}"
         key_name: "{{ keypair.key.name }}"
         name: staticS3 
         security_goups:
-          - "{{ security_group.id }}"
+          - "{{ security_group.group_id }}"
       loop: "{{ public_subnet_result.results }}"
       register: dw_instances
