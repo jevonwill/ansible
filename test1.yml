@@ -71,6 +71,6 @@
 
     - name: Copy EC2 Private Key locally so it can be later on used to SSH into the instance
       copy: 
-        content: "{{ keypair.private_key }}" 
+        content: "{{ keypair.private_key_file }}" 
         dest: /home/ubuntu/dw_keypair.pem
         mode: '0400'
