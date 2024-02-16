@@ -79,3 +79,14 @@
         dest: /home/ubuntu/dw_keypair.pem
       when: keypair.changed
 
+    - name: Create EC2 instance
+      ec2:
+        image:
+        wait: yes
+        instance_type: t2.micro
+        region: us-east-1
+        group_id:
+        key_name:
+        count_tag:
+          Name:
+        exact_count: 1
