@@ -1,0 +1,78 @@
+#ansible-playbook -i /home/ubuntu/ansible/group_vars/inventory.yml --private-key=/home/ubuntu/.ssh/bastion.pem
+#ansible myhosts -m ping -i /home/ubuntu/ansible/group_vars/inventory.yml
+
+---
+- name: Create AWS VPC, Subnets, and Security Groups
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create VPC
+      ec2_vpc_net:
+        name: dwVPC
+        cidr_block: 10.1.0.0/16
+        region: us-east-1
+      register: vpc_result
+
+    - name: Public Subnets
+      ec2_vpc_subnet:
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        cidr: "{{ item.cidr }}"
+        az: "{{ item.az }}"
+        region: us-east-1
+        map_public: true
+      with_items:
+        - { cidr: 10.1.1.0/24, az: "us-east-1a"}
+        - { cidr: 10.1.2.0/24, az: "us-east-1b"}
+      register: public_subnet_result
+
+    - name: Private Subnets
+      ec2_vpc_subnet:
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        cidr: "{{ item.cidr }}"
+        az: "{{ item.az }}"
+        region: us-east-1
+        map_public: false
+      with_items:
+        - { cidr: 10.1.3.0/24, az: "us-east-1a"}
+        - { cidr: 10.1.4.0/24, az: "us-east-1b"}
+      register: private_subnet_result
+
+    - name: Create IGW
+      ec2_vpc_igw:
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        region: us-east-1
+        state: "present" 
+        tags:
+          Name: dwIGW
+      register: igw
+
+    - name: Create Security Group
+      ec2_group:
+        name: dw Public Access
+        description: Security group for public instances
+        vpc_id: "{{ vpc_result.vpc.id }}"
+        region: us-east-1
+        rules:
+          - proto: tcp
+            ports: 
+            - 80
+            cidr_ip: 0.0.0.0./0
+          - proto: tcp
+            ports: 
+            - 22
+            cidr_ip: 0.0.0.0./0
+      register: security_group
+          
+    - name: Create EC2 instance
+      ec2_instance:
+        image_id: ami-00eaf15cd7bd717b6
+        wait: yes
+        instance_type: t2.micro
+        region: us-east-1
+        vpc_subnet_id: "{{ item.subnet.id }}"
+        key_name: dw-test-1
+        name: staticS3 
+        security_groups:
+          - "{{ security_group.group_id }}"
+      loop: "{{ public_subnet_result.results }}"
+      register: dw_instances
